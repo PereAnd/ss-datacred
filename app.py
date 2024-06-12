@@ -9,7 +9,7 @@ import random
 app = Flask(__name__)
 faker = Faker()
 TASA_REPORT_DATACRED = 50
-TASA_REPORT_CLINTON = 0
+TASA_REPORT_CLINTON = 50
 API_KEY = 'ESTAESMIAPIKEY'
 
 global_data = {
@@ -47,7 +47,7 @@ def getDatacredRequestID():
 
 @app.route('/api/datacredito/<request_id>', methods=['GET'])
 def responseDatacred(request_id):
-    # if not Authorization(request.headers, 'datacred'): return {"mssg": "No autorizado"}, 403
+    if not Authorization(request.headers, 'datacred'): return {"mssg": "No autorizado"}, 403
     if not Reportado(TASA_REPORT_DATACRED):
         return {"mssg": "Cliente no encontrado"}, 404
 
